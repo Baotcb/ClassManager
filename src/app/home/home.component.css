@@ -1,0 +1,18 @@
+.ListSubject {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.list-group-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+    .list-group-item a {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+        .list-group-item a:hover {
+            text-decoration: underline;
+        }

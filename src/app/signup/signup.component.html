@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+  
+    <style>
+
+
+    </style>
+   
+</head>
+<body [ngClass]="{'slide': isSlide, 'dark': isDark}" style="background: #1d2b3a">
+    <div class="scene">
+        <div class="sun"></div>
+        <div class="bg">
+           
+            <div class="containerout">
+                <div class="container">
+                    <div class="box signin">
+                        <h2>Already Have an Account ?</h2>
+                        <button class="signinBtn" (click)="onSignIn()">Sign in</button>
+                    </div>
+                    <div class="box signup">
+                        <h2 style="color: black;">Don't Have an Account ?</h2>
+                        <button class="signupBtn"(click)="onSignUp()">Sign up</button>
+                    </div>
+                    <div class="formBx">
+                        <div class="form signinform">
+                            <form (ngSubmit)="SummitLogin()" >
+                                <h3>Sign In</h3>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Email" required [(ngModel)]="User.Email">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="User.Password" required>
+                                <input type="submit" value="Login">
+                                <a href="#" class="forgot">Forgot Password</a>
+                                <div class="error-message" id="signin-error"> 
+                                     {{message}}
+                                </div>
+                            </form>
+                        </div>
+                        <div class="form signupform">
+                            <form (ngSubmit)="SummitSignUp()">
+                                <h3>Sign Up</h3>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required [(ngModel)]="User.Name">
+                                <input type="text" id="email" name="email" class="form-control" required placeholder="Email Address" [(ngModel)]="User.Email">
+                                <input type="text" id="email" name="email" class="form-control" required placeholder="Phone Number" [(ngModel)]="User.PhoneNumber">
+                                <input type="password" id="password" name="password" class="form-control" required placeholder="Password" [(ngModel)]="User.Password">
+                                
+                                <input type="submit" value="Register">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
