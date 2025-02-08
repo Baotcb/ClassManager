@@ -1,0 +1,103 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --light-bg: #f8f9fa;
+}
+
+body {
+    background-color: var(--light-bg);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+    background-color: var(--primary-color);
+    min-height: 100vh;
+    padding: 20px;
+    position: fixed;
+    width: inherit;
+}
+
+    .sidebar h4 {
+        color: white;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        background-color: var(--secondary-color);
+    }
+
+.subject-item {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    .subject-item:hover {
+        background-color: var(--accent-color);
+        transform: translateX(5px);
+    }
+
+    .subject-item.active {
+        background-color: var(--accent-color);
+    }
+
+.main-content {
+    padding: 30px;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    padding: 15px 20px;
+}
+
+.student-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+    .student-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+.grade-input {
+    max-width: 80px;
+    margin-right: 10px;
+}
+
+.btn {
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+}
+
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+
+.info-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: var(--accent-color);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}

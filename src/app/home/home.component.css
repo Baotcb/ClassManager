@@ -1,18 +1,123 @@
-.ListSubject {
-    max-height: 300px;
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --light-bg: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+body {
+    background-color: var(--light-bg);
+}
+
+.timetable-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.week-navigator {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+}
+
+.current-week {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.schedule-table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.table > :not(caption) > * > * {
+    padding: 1rem;
+}
+
+.table thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.class-slot {
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.class-slot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #bbdefb;
+}
+
+.class-slot h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.class-slot p {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    color: var(--secondary-color);
+}
+
+.classes-sidebar {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.classes-list {
+    max-height: 400px;
     overflow-y: auto;
 }
 
-.list-group-item {
-    padding: 10px;
-    border: 1px solid #ddd;
+.classes-list::-webkit-scrollbar {
+    width: 6px;
 }
 
-    .list-group-item a {
-        text-decoration: none;
-        color: #007bff;
-    }
+.classes-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
 
-        .list-group-item a:hover {
-            text-decoration: underline;
-        }
+.classes-list::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 3px;
+}
+
+.class-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.class-item:hover {
+    background-color: var(--light-bg);
+}
+
+.class-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.class-item i {
+    color: var(--secondary-color);
+}
+
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+    color: var(--secondary-color);
+}

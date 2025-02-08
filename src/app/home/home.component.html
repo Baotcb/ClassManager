@@ -1,98 +1,69 @@
-<div class="container d-flex" style="margin-top: 30px; margin-left:15px">
-    <div class="timetable me-3" style="flex: 3;" ng-app="myApp" ng-controller="TimeTableController">
-        <div>
-            <h1 class="text-center">Time Table</h1>
-        </div>
-        <div class="d-flex justify-content-between mb-3">
-            <button class="btn btn-secondary" (click)="previousWeek()">Previous Week</button>
-            <button class="btn btn-secondary" (click)="nextWeek()">Next Week</button>
-        </div>
-        <div class="schedule-table">
-            <table class="table bg-white">
-                <thead>
-                    <tr>
-                        <th scope="col">Time</th>
-                        <th scope="col">Monday</th>
-                        <th scope="col">Tuesday</th>
-                        <th scope="col">Wednesday</th>
-                        <th scope="col">Thursday</th>
-                        <th scope="col">Friday</th>
-                   
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of Schedule">
-                        <th scope="row">{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</th>
-                        <td>
-                            <div *ngIf="item.dayOfWeek === 'Monday'" class="active">
-                                <div class="hover">
-                                    <h4>{{item.subjectName}}</h4>
-                                    <p>{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</p>
-                                    <p>{{item.startTime| date}}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngIf="item.dayOfWeek === 'Tuesday'" class="active">
-                                <div class="hover">
-                                    <h4>{{item.subjectName}}</h4>
-                                    <p>{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</p>
-                                    <p>{{item.startTime| date}}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngIf="item.dayOfWeek === 'Wednesday'" class="active">
-                                <div class="hover">
-                                    <h4>{{item.subjectName}}</h4>
-                                    <p>{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</p>
-                                    <p>{{item.startTime| date}}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngIf="item.dayOfWeek === 'Thursday'" class="active">
-                                <div class="hover">
-                                    <h4>{{item.subjectName}}</h4>
-                                    <p>{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</p>
-                                    <p>{{item.startTime| date}}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngIf="item.dayOfWeek === 'Friday'" class="active">
-                                <div class="hover">
-                                    <h4>{{item.subjectName}}</h4>
-                                    <p>{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</p>
-                                    <p>{{item.startTime| date}}</p>
-                                </div>
-                            </div>
-                        </td>
-                        
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-4" style="margin-top:90px">
-        <div class="card mb-4">
-            <div class="card-header bg-success text-white">
-                <h5 class="card-title mb-0">Your Classes</h5>
+<div class="container-fluid timetable-container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="week-navigator d-flex justify-content-between align-items-center">
+                <button class="btn btn-outline-primary" (click)="previousWeek()">
+                    <i class="fas fa-chevron-left me-2"></i>Previous Week
+                </button>
+                <span class="current-week">
+                    <i class="fas fa-calendar-week me-2"></i>
+                    Week of {{ScheduleViewModel.WeekStart | date}}
+                </span>
+                <button class="btn btn-outline-primary" (click)="nextWeek()">
+                    Next Week<i class="fas fa-chevron-right ms-2"></i>
+                </button>
             </div>
-            <div class="card-body">
-                <ul class="list-group ListSubject">
-                    <div *ngIf="Classes.Length==0; else elseblock">
-                        <li class="alert alert-warning">No Classes Found</li>
-                    </div>
-                    <ng-template #elseblock>
-                        <div *ngFor="let item of Classes">
-                            <li class="list-group-item" [routerLink]="['/class', item.classId]"><a > {{item.name}}</a></li>
-                        </div>
-                    </ng-template>
-                </ul>
+
+            <div class="schedule-table">
+                <table class="table table-bordered mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Time</th>
+                            <th scope="col" class="text-center">Monday</th>
+                            <th scope="col" class="text-center">Tuesday</th>
+                            <th scope="col" class="text-center">Wednesday</th>
+                            <th scope="col" class="text-center">Thursday</th>
+                            <th scope="col" class="text-center">Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of Schedule">
+                            <th scope="row" class="text-center">
+                                {{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}
+                            </th>
+                            <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+                                <div *ngIf="item.dayOfWeek === day" class="class-slot">
+                                    <h4><i class="fas fa-book me-2"></i>{{item.subjectName}}</h4>
+                                    <p><i class="far fa-clock me-2"></i>{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</p>
+                                    <p><i class="far fa-calendar-alt me-2"></i>{{item.startTime| date}}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
+        <div class="col-lg-4">
+            <div class="classes-sidebar">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0">
+                        <i class="fas fa-graduation-cap me-2"></i>Your Classes
+                    </h5>
+                </div>
+                <div class="classes-list">
+                    <div *ngIf="Classes.Length==0" class="empty-state">
+                        <i class="fas fa-book-reader fa-3x mb-3"></i>
+                        <p class="mb-0">No Classes Found</p>
+                    </div>
+                    <div *ngFor="let item of Classes" class="class-item">
+                        <a [routerLink]="['/class', item.classId]">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            {{item.name}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
