@@ -1,90 +1,207 @@
-<div *ngIf="role === 2; else studentView">
-    <div class="container-fluid">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<div class="classroom-container">
+   
+    <div *ngIf="role === 2; else studentView" class="container-fluid">
         <div class="row">
-            <div class="col-md-9">
-                <div class="container mt-4">
-                    <h2 class="mb-4">Teacher Class</h2>
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="card-title mb-0">Class Information</h5>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Teacher: {{classinformation.teacherName}} </h5>
-                            <p class="card-text">Start Time:{{classinformation.beginAt}} </p>
-                            <p class="card-text">End Time:{{classinformation.endAt}}</p>
-                        </div>
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">Teacher Dashboard</h2>
+                    <span class="badge bg-primary">Teacher View</span>
+                </div>
+
+              
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chalkboard-teacher me-2"></i>
+                            Class Information
+                        </h5>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h5 class="card-title mb-0">Study Materials</h5>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header bg-info text-white">
-                            <h5 class="card-title mb-0"> Students</h5>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let student of appearstudent ">
-                                    {{student.name}}----- {{student.grade}}
-                                    <div>
-                                        <form (ngSubmit)="SaveGrade(student.id)" class="d-inline">
-                                            <input type="hidden" name="studentId" value={{student.id}} />
-                                            <input type="hidden" name="classId" value={{classid}} />
-                                            <input type="hidden" name="subjectId" value={{student.subjectId}} />
-                                            <input type="text" name="grade" placeholder="Grade" class="form-control d-inline-block w-auto" [(ngModel)]="student.newGrade" />
-                                            <button type="submit" class="btn btn-primary btn-sm" >Grade</button>
-                                        </form>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="info-item">
+                                    <div class="info-label">Teacher</div>
+                                    <div class="info-value">
+                                        <i class="fas fa-user me-2"></i>
+                                        {{classinformation.teacherName}}
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="info-item">
+                                    <div class="info-label">Start Date</div>
+                                    <div class="info-value">
+                                        <i class="fas fa-calendar-alt me-2"></i>
+                                        {{classinformation.beginAt | date}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="info-item">
+                                    <div class="info-label">End Date</div>
+                                    <div class="info-value">
+                                        <i class="fas fa-calendar-check me-2"></i>
+                                        {{classinformation.endAt | date}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+          
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-book me-2"></i>
+                            Study Materials
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="materials-list">
+                            <div class="empty-state">
+                                <i class="fas fa-file-alt fa-3x mb-3"></i>
+                                <p>No study materials available yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+                <div class="card">
+                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-users me-2"></i>
+                            Students
+                        </h5>
+                        <span class="badge bg-white text-info">
+                            {{appearstudent.length}} Students
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="appearstudent.length === 0" class="empty-state">
+                            <i class="fas fa-user-graduate fa-3x mb-3"></i>
+                            <p>No students found for this subject</p>
+                        </div>
+                        <div class="student-list-item" *ngFor="let student of appearstudent">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">{{student.name}}</h5>
+                                    <span class="badge bg-secondary">Current Grade: {{student.grade || 'Not graded'}}</span>
+                                </div>
+                                <form (ngSubmit)="SaveGrade(student.id)" class="d-flex align-items-center">
+                                    <input type="hidden" name="studentId" [value]="student.id" />
+                                    <input type="hidden" name="classId" [value]="classid" />
+                                    <input type="hidden" name="subjectId" [value]="student.subjectId" />
+                                    <input type="text" 
+                                           class="form-control grade-input" 
+                                           placeholder="Grade" 
+                                           [(ngModel)]="student.newGrade" 
+                                           name="grade" />
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-check me-2"></i>
+                                        Save Grade
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="list-group">
-                    <h4 class="list-group-item list-group-item-action active">Subjects</h4>
-                    @for (subject of subjects; track subject.subjectId) {
-                        <a class="list-group-item list-group-item-action" 
-                            [class.active]="selectedSubject?.subjectId === subject.subjectId"
-                            (click)="filterStudents(subject.subjectId)">
-                            {{subject.name}}
-                        </a>
-                    }
-                    
+
+      
+            <div class="col-lg-3">
+                <div class="subjects-sidebar">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-book-reader me-2"></i>
+                                Subjects
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            @for (subject of subjects; track subject.subjectId) {
+                                <div class="subject-item"
+                                     [class.active]="selectedSubject?.subjectId === subject.subjectId"
+                                     (click)="filterStudents(subject.subjectId)">
+                                    <i class="fas fa-book me-2"></i>
+                                    {{subject.name}}
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Student View -->
+    <ng-template #studentView>
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">Your Classroom</h2>
+                <span class="badge bg-info">Student View</span>
+            </div>
+
+         
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-chalkboard-teacher me-2"></i>
+                        Class Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="info-item">
+                                <div class="info-label">Teacher</div>
+                                <div class="info-value">
+                                    <i class="fas fa-user me-2"></i>
+                                    {{classinformation.teacherName}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-item">
+                                <div class="info-label">Start Date</div>
+                                <div class="info-value">
+                                    <i class="fas fa-calendar-alt me-2"></i>
+                                    {{classinformation.beginAt | date}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-item">
+                                <div class="info-label">End Date</div>
+                                <div class="info-value">
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    {{classinformation.endAt | date}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-book me-2"></i>
+                        Study Materials
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="materials-list">
+                        <div class="empty-state">
+                            <i class="fas fa-file-alt fa-3x mb-3"></i>
+                            <p>No study materials available yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
 </div>
-<ng-template #studentView>
-    <div class="container mt-4">
-        <h2 class="mb-4">Classroom</h2>
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                <h5 class="card-title mb-0">Class Information</h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Teacher: {{classinformation.teacherName}} </h5>
-                <p class="card-text">Start Time:{{classinformation.beginAt}} </p>
-                <p class="card-text">End Time:{{classinformation.endAt}}</p>
-            </div>
-        </div>
-        
-        <div class="card mb-4">
-            <div class="card-header bg-success text-white">
-                <h5 class="card-title mb-0">Study Materials</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</ng-template>
