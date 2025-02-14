@@ -1,123 +1,119 @@
-:root {
-    --primary-color: #0d6efd;
-    --secondary-color: #6c757d;
-    --success-color: #198754;
-    --light-bg: #f8f9fa;
-    --border-color: #dee2e6;
-}
-
-body {
-    background-color: var(--light-bg);
-}
-
+/* home.component.css */
 .timetable-container {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    padding: 2rem;
 }
 
 .week-navigator {
-    background-color: white;
-    border-radius: 10px;
+    background-color: #f8f9fa;
     padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .current-week {
+    font-size: 1.2rem;
     font-weight: 500;
-    color: var(--primary-color);
 }
 
 .schedule-table {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.table > :not(caption) > * > * {
-    padding: 1rem;
+.table {
+    margin-bottom: 0;
 }
 
-.table thead {
-    background-color: var(--primary-color);
-    color: white;
+.table th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.time-slot {
+    white-space: nowrap;
+    width: 150px;
+}
+
+.schedule-cell {
+    height: 120px;
+    width: calc((100% - 150px) / 5);
+    padding: 0.5rem;
+    vertical-align: top;
+}
+
+.has-class {
+    background-color: #f8f9fa;
 }
 
 .class-slot {
-    background-color: #e3f2fd;
-    border-radius: 8px;
+    background-color: white;
+    border-radius: 0.5rem;
     padding: 0.75rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
 }
 
 .class-slot:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #bbdefb;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.class-slot h4 {
+.class-title {
     font-size: 1rem;
+    font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: #2c3e50;
 }
 
-.class-slot p {
+.class-time, .class-date, .teacher-name {
     font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-    color: var(--secondary-color);
+    color: #6c757d;
 }
 
 .classes-sidebar {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.classes-list {
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.classes-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.classes-list::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-.classes-list::-webkit-scrollbar-thumb {
-    background: var(--secondary-color);
-    border-radius: 3px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .class-item {
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    transition: background-color 0.2s;
 }
 
 .class-item:hover {
-    background-color: var(--light-bg);
+    background-color: #f8f9fa;
 }
 
 .class-item a {
-    color: var(--primary-color);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.class-item i {
-    color: var(--secondary-color);
+    color: #2c3e50;
+    display: block;
 }
 
 .empty-state {
-    padding: 2rem;
-    text-align: center;
-    color: var(--secondary-color);
+    color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .col-lg-4 {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .schedule-table {
+        overflow-x: auto;
+    }
+    
+    .time-slot {
+        width: 120px;
+    }
+    
+    .schedule-cell {
+        width: 150px;
+    }
 }

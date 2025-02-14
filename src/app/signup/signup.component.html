@@ -35,7 +35,7 @@
                                 <input type="submit" value="Login">
                                 <a href="#" class="forgot">Forgot Password</a>
                                 <div class="error-message" id="signin-error"> 
-                                     {{message}}
+                                     <h4 class="error-message">{{message}}</h4>
                                 </div>
                             </form>
                         </div>
@@ -48,6 +48,9 @@
                                 <input type="password" id="password" name="password" class="form-control" required placeholder="Password" [(ngModel)]="User.Password">
                                 
                                 <input type="submit" value="Register">
+                                <div class="error-message" id="signin-error"> 
+                                    <h4 class="error-message">{{message}}</h4>
+                               </div>
                             </form>
                         </div>
                     </div>

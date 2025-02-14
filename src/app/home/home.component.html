@@ -1,7 +1,8 @@
+<!-- home.component.html -->
 <div class="container-fluid timetable-container">
     <div class="row">
         <div class="col-lg-8">
-            <div class="week-navigator d-flex justify-content-between align-items-center">
+            <div class="week-navigator d-flex justify-content-between align-items-center mb-4">
                 <button class="btn btn-outline-primary" (click)="previousWeek()">
                     <i class="fas fa-chevron-left me-2"></i>Previous Week
                 </button>
@@ -19,23 +20,32 @@
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">Time</th>
-                            <th scope="col" class="text-center">Monday</th>
-                            <th scope="col" class="text-center">Tuesday</th>
-                            <th scope="col" class="text-center">Wednesday</th>
-                            <th scope="col" class="text-center">Thursday</th>
-                            <th scope="col" class="text-center">Friday</th>
+                            <th scope="col" class="text-center" *ngFor="let day of daysOfWeek">{{day}}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of Schedule">
-                            <th scope="row" class="text-center">
-                                {{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}
-                            </th>
-                            <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
-                                <div *ngIf="item.dayOfWeek === day" class="class-slot">
-                                    <h4><i class="fas fa-book me-2"></i>{{item.subjectName}}</h4>
-                                    <p><i class="far fa-clock me-2"></i>{{item.startTime | date:'shortTime'}} - {{item.endTime | date:'shortTime'}}</p>
-                                    <p><i class="far fa-calendar-alt me-2"></i>{{item.startTime| date}}</p>
+                        <tr *ngFor="let row of scheduleMatrix; let timeIndex = index">
+                            <th scope="row" class="text-center time-slot">{{timeSlots[timeIndex]}}</th>
+                            <td *ngFor="let cell of row" 
+                                [ngClass]="{'has-class': cell}"
+                                class="schedule-cell">
+                                <div *ngIf="cell" class="class-slot">
+                                    <h4 class="class-title">
+                                        <i class="fas fa-book me-2"></i>
+                                        {{cell.subjectName}}
+                                    </h4>
+                                    <p class="class-time mb-1">
+                                        <i class="far fa-clock me-2"></i>
+                                        {{cell.startTime | date:'shortTime'}} - {{cell.endTime | date:'shortTime'}}
+                                    </p>
+                                    <p class="class-date mb-1">
+                                        <i class="far fa-calendar-alt me-2"></i>
+                                        {{cell.startTime | date}}
+                                    </p>
+                                    <p class="teacher-name mb-0">
+                                        <i class="fas fa-chalkboard-teacher me-2"></i>
+                                        {{cell.teacherName}}
+                                    </p>
                                 </div>
                             </td>
                         </tr>
@@ -52,13 +62,13 @@
                     </h5>
                 </div>
                 <div class="classes-list">
-                    <div *ngIf="Classes.Length==0" class="empty-state">
+                    <div *ngIf="Classes.length === 0" class="empty-state p-4 text-center">
                         <i class="fas fa-book-reader fa-3x mb-3"></i>
                         <p class="mb-0">No Classes Found</p>
                     </div>
-                    <div *ngFor="let item of Classes" class="class-item">
-                        <a [routerLink]="['/class', item.classId]">
-                            <i class="fas fa-chalkboard-teacher"></i>
+                    <div *ngFor="let item of Classes" class="class-item p-3 border-bottom">
+                        <a [routerLink]="['/class', item.classId]" class="text-decoration-none">
+                            <i class="fas fa-chalkboard-teacher me-2"></i>
                             {{item.name}}
                         </a>
                     </div>

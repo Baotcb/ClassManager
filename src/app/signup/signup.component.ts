@@ -17,6 +17,8 @@ export class SignupComponent {
   isSlide = false;
   isDark = false;
   message:string = '';
+  IsValidEmail:boolean = true;
+  IsValidPhoneNumber:boolean = true;
 
 User={
   userId: 0,
@@ -41,7 +43,18 @@ User={
       this.isDark = false;
     }
   }
+  checkEmail():void {
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
+    this.IsValidEmail = gmailPattern.test(this.User.Email);
+  }
+
+  checkPhoneNumber():void {
+    const phoneNumberPattern = /^[0-9]{10}$/;
+    this.IsValidPhoneNumber = phoneNumberPattern.test(this.User.PhoneNumber);
+  }
   SummitLogin():void {
+    this.checkEmail();
+    if (!this.IsValidEmail) {
     console.log('Form submitted', this.User);
     let apiUrl:string = 'https://localhost:7042/api/User/CheckLogin';
     
@@ -81,9 +94,16 @@ User={
       }
     });
   }
+  else{
+    this.message = 'Invalid Email';
+  }
+  }
 
   SummitSignUp():void {
-    console.log('Form submitted', this.User);
+    this.checkEmail();
+    this.checkPhoneNumber();
+    if (this.IsValidEmail && this.IsValidPhoneNumber) {
+      console.log('Form submitted', this.User);
     let apiUrl:string = 'https://localhost:7042/api/User/SignUp';
     
     let httpOptions = {
@@ -111,6 +131,10 @@ User={
         console.error('Login error:', error);
       }
     });
+    }
+    else{
+      this.message = 'Invalid Email or Phone Number';
+    }
   }
 
 

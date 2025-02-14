@@ -13,6 +13,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent {
   showNav = false;
+  userName: string | null = null;
 
   constructor(private router: Router) {
     router.events.subscribe((event) => {
@@ -23,4 +24,15 @@ export class AppComponent {
       }
     });
   }
+  ngOnInit() {
+    this.userName = sessionStorage.getItem('name');
+    this.showNav = this.router.url !== '/signup';
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['/signup']);
+  }
+
+
 }
