@@ -98,3 +98,25 @@ body {
     max-height: 300px;
     overflow-y: auto;
 }
+
+.subject-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.subject-item:not(.disabled):hover {
+    background-color: #f8f9fa;
+}
+
+.subject-item.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.subject-item.disabled {
+    opacity: 0.6;
+    background-color: #e4e3f7;
+    
+}

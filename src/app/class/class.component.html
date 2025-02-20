@@ -124,9 +124,13 @@
                             @for (subject of subjects; track subject.subjectId) {
                                 <div class="subject-item"
                                      [class.active]="selectedSubject?.subjectId === subject.subjectId"
-                                     (click)="filterStudents(subject.subjectId)">
+                                     [class.disabled]="!isSubjectEnabled(subject.subjectId)"
+                                     (click)="filterStudents(subject.subjectId)"
+                                     [style.cursor]="isSubjectEnabled(subject.subjectId) ? 'pointer' : 'not-allowed'">
                                     <i class="fas fa-book me-2"></i>
                                     {{subject.name}}
+                                    <span *ngIf="!isSubjectEnabled(subject.subjectId)" 
+                                          class="ms-2 text-muted">(Not available)</span>
                                 </div>
                             }
                         </div>

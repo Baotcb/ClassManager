@@ -1,8 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import * as bootstrap from 'bootstrap';
+export interface User {
+  userId: number;
+  name: string;
+  email: string;
+  password: string;
+  role: number;
+  phoneNumber: string;
+}
 
 @Component({
   selector: 'app-profile',
@@ -11,15 +19,26 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+
+  constructor(private elementRef: ElementRef) {}
+
   role:number=Number(sessionStorage.getItem('role'));
   userid:number=Number(sessionStorage.getItem('userId'));
   isTeacher:boolean=false;
   http=inject(HttpClient);
-  user: User|any = null;
+  user: User = {
+    userId: 0,
+    name: '',
+    email: '',
+    password: '',
+    role: 0,
+    phoneNumber: ''}
   currentPassword:string='';
   newPassword:string='';
   errorMessage: string='';
   grades: Grade[] = [];
+  openEditProfileModal:boolean=false;
+  openChangePasswordModal:boolean=false;
 
   readonly subjects = {
     1: 'Math',
@@ -65,15 +84,18 @@ export class ProfileComponent {
         }
       });
   }
-
+  openEditProfile(): void {
+    this.openEditProfileModal = true;
+    
+  }
   updateProfile(): void {
     const userToUpdate = {
       UserId: this.userid,
-      Name: this.user.Name,
-      Email: this.user.Email,
-      Password: this.user.Password,
+      Name: this.user.name,
+      Email: this.user.email,
+      Password: this.user.password,
       Role: this.role,
-      PhoneNumber: this.user.PhoneNumber
+      PhoneNumber: this.user.phoneNumber
     };
   
     this.http.post<User>('https://localhost:7042/api/User/UpdateUserInformation', userToUpdate)
@@ -82,13 +104,22 @@ export class ProfileComponent {
           console.log('User updated:', user);
           this.user = user;
           this.loadUserProfile();
+          
+        
+          const modal = this.elementRef.nativeElement.querySelector('#editProfileModal');
+          const modalInstance = bootstrap.Modal.getInstance(modal);
+          if (modalInstance) {
+            modalInstance.hide();
+          }
         },
         error: (error) => {
           console.error('Error updating profile:', error);
         }
       });
   }
-
+  openChangePassword(): void {
+    this.openChangePasswordModal = true;
+  }
   changePassword(): void {
     const userToChangePassword = {
       UserId: this.userid,
@@ -107,8 +138,18 @@ export class ProfileComponent {
         this.http.post('https://localhost:7042/api/User/UpdatePassword', updatePasswordData)
           .subscribe({
             next: () => {
-              console.log('Password updated');
+              console.log('Password updated successfully');
+            
+              this.currentPassword = '';
+              this.newPassword = '';
+              this.errorMessage = '';
               
+              
+              const modal = this.elementRef.nativeElement.querySelector('#changePasswordModal');
+              const modalInstance = bootstrap.Modal.getInstance(modal);
+              if (modalInstance) {
+                modalInstance.hide();
+              }
             },
             error: (error) => {
               console.error('Error updating password:', error);
@@ -121,7 +162,7 @@ export class ProfileComponent {
         this.errorMessage = 'Current password is incorrect';
       }
     });
-  }
+}
 
   loadGrades(): void {
     this.http.post<Grade[]>('https://localhost:7042/api/Class/GetGradeByUserId', this.userid)
@@ -156,14 +197,7 @@ export class ProfileComponent {
 }
 
 
-export interface User {
-  UserId: number;
-  Name: string;
-  Email: string;
-  Password: string;
-  Role: number;
-  PhoneNumber: string;
-}
+
 
 export interface Grade {
   gradeId: number;

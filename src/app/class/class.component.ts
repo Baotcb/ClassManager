@@ -19,29 +19,37 @@ export class ClassComponent {
   appearstudent:StudentDto[] = [];
   selectedSubject: Subject |null =  { subjectId: 1, name: "Math" };
   subjects: Subject[] = [
-    { subjectId: 1, name: "Math" },
-    { subjectId: 2, name: "Physics" },
-    { subjectId: 3, name: "Chemistry" },
-    { subjectId: 4, name: "English" },
-    { subjectId: 5, name: "Biology" },
-    { subjectId: 6, name: "IT" },
-    { subjectId: 7, name: "History" },
-    { subjectId: 8, name: "Geography" },
-    { subjectId: 9, name: "Physical Education" },
-    { subjectId: 10, name: "Literature" },
-    { subjectId: 11, name: "Philosophy" },
-    { subjectId: 12, name: "Sociology" },
-    { subjectId: 13, name: "Astrophysics" },
-    { subjectId: 14, name: "Environmental Science" }
+    // { subjectId: 1, name: "Math" },
+    // { subjectId: 2, name: "Physics" },
+    // { subjectId: 3, name: "Chemistry" },
+    // { subjectId: 4, name: "English" },
+    // { subjectId: 5, name: "Biology" },
+    // { subjectId: 6, name: "IT" },
+    // { subjectId: 7, name: "History" },
+    // { subjectId: 8, name: "Geography" },
+    // { subjectId: 9, name: "Physical Education" },
+    // { subjectId: 10, name: "Literature" },
+    // { subjectId: 11, name: "Philosophy" },
+    // { subjectId: 12, name: "Sociology" },
+    // { subjectId: 13, name: "Astrophysics" },
+    // { subjectId: 14, name: "Environmental Science" }
   ];
+  appearsubject: Subject[] = [];
 constructor(private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       console.log(params['classid']); 
     });
     this.classid = this.route.snapshot.params['classid'];
 }
+isSubjectEnabled(subjectId: number): boolean {
+  return this.appearsubject.some(s => s.subjectId === subjectId);
+}
+
 filterStudents(subjectId: number): void {
-  this.selectedSubject = this.subjects.find(s => s.subjectId === subjectId)||null;
+  if (!this.isSubjectEnabled(subjectId)) {
+    return; // Don't filter if subject is disabled
+  }
+  this.selectedSubject = this.subjects.find(s => s.subjectId === subjectId) || null;
   this.appearstudent = this.getFilteredStudents();
 }
 getFilteredStudents(): StudentDto[] {
@@ -66,7 +74,30 @@ ngOnInit() {
       this.liststudent = res;
       this.appearstudent = this.getFilteredStudents();
     });
-   
+
+    const teacherId = Number(sessionStorage.getItem('userId'));
+    apiUrl = `https://localhost:7042/api/Class/GetListSubjectOfTeacher/${this.classid}&&${teacherId}`;
+    
+    this.httpClient.get<Subject[]>(apiUrl).subscribe({
+      next: (response) => {
+        if (response && response.length > 0) {
+          this.appearsubject = response;
+          console.log('Teacher subjects:', this.appearsubject);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching teacher subjects:', error);
+        if (error.status === 404) {
+          this.appearsubject = [];
+        }
+      }
+    });
+    apiUrl='https://localhost:7042/api/Class/GetSubject';
+    this.httpClient.get(apiUrl).subscribe((res: any) => {
+      console.log(res);
+      this.subjects = res;
+    });
+
   } 
 
 }
