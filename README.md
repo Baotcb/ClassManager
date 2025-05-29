@@ -42,11 +42,48 @@ The Class Manager System is divided into three core projects:
 
 ## Getting Started
 
-Each repository has its own setup instructions. Please refer to the individual README files for installation and usage details:
+This repository is the **Class Manager Public Client**. To set up the project locally, follow these steps:
 
-- [Class Manager Server Setup](https://github.com/Baotcb/Class_Manager_Server#readme)
-- [Class Manager Admin Client Setup](https://github.com/Baotcb/ClassManager_AdminClient_Typescript#readme)
-- [Class Manager Public Client Setup](https://github.com/Baotcb/ClassManager#readme)
+### Prerequisites
+
+- [Node.js (v18 or above recommended)](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- [Git](https://git-scm.com/)
+
+### Setup Instructions
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/Baotcb/ClassManager.git
+   cd ClassManager
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables:**
+
+   - Copy `.env.example` to `.env` and fill in the required values (if applicable).
+
+4. **Start the development server:**
+
+   ```bash
+   npm start
+   ```
+
+   The app should now be running at [http://localhost:3000](http://localhost:3000) or another port specified in your configuration.
+
+5. **Build for production:**
+
+   ```bash
+   ng serve
+   ```
+
+   The production-ready files will be generated in the `dist` or `build` directory (check your project setup).
 
 ---
 
