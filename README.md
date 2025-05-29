@@ -1,59 +1,69 @@
-# ClassManagerClient
+# Class Manager System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+Welcome to the **Class Manager System**! This project is an integrated solution designed to manage classes, students, and administrative functions for educational institutions. It is composed of three main repositories:
 
-## Development server
+- **Class Manager Server** (`Baotcb/Class_Manager_Server`): The backend API and database logic, written in C# and T-SQL.
+- **Class Manager Admin Client** (`Baotcb/ClassManager_AdminClient_Typescript`): The admin-facing web client, built with TypeScript, HTML, and CSS.
+- **Class Manager Public Client** (`Baotcb/ClassManager`): The public-facing website for students and teachers, built with HTML, TypeScript, and CSS.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## Repository Links
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- [Class Manager Server (C#)](https://github.com/Baotcb/Class_Manager_Server)
+- [Class Manager Admin Client (TypeScript)](https://github.com/Baotcb/ClassManager_AdminClient_Typescript)
+- [Class Manager Public Client (TypeScript/HTML)](https://github.com/Baotcb/ClassManager)
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Project Overview
 
-```bash
-ng generate component component-name
-```
+The Class Manager System is divided into three core projects:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 1. Class Manager Server
 
-```bash
-ng generate --help
-```
+- **Repository:** [Baotcb/Class_Manager_Server](https://github.com/Baotcb/Class_Manager_Server)
+- **Languages:** C# (87%), TSQL (13%)
+- **Description:** Handles all backend operations, including database management, authentication, class and student data handling, and API endpoints used by both client applications.
 
-## Building
+### 2. Class Manager Admin Client
 
-To build the project run:
+- **Repository:** [Baotcb/ClassManager_AdminClient_Typescript](https://github.com/Baotcb/ClassManager_AdminClient_Typescript)
+- **Languages:** TypeScript (47%), HTML (39.8%), CSS (13.2%)
+- **Description:** The administrative dashboard allowing staff to manage classes, users, attendance, schedules, and reports.
 
-```bash
-ng build
-```
+### 3. Class Manager Public Client
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- **Repository:** [Baotcb/ClassManager](https://github.com/Baotcb/ClassManager)
+- **Languages:** HTML (42%), TypeScript (38.9%), CSS (19.1%)
+- **Description:** The main portal for students and teachers to access class information, schedules, resources, and notifications.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Getting Started
 
-```bash
-ng test
-```
+Each repository has its own setup instructions. Please refer to the individual README files for installation and usage details:
 
-## Running end-to-end tests
+- [Class Manager Server Setup](https://github.com/Baotcb/Class_Manager_Server#readme)
+- [Class Manager Admin Client Setup](https://github.com/Baotcb/ClassManager_AdminClient_Typescript#readme)
+- [Class Manager Public Client Setup](https://github.com/Baotcb/ClassManager#readme)
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## Contribution
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+We welcome contributions! Please open issues or submit pull requests to the appropriate repository. For questions, use the Issues tab or contact the repository maintainers.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+
+This project is licensed under the terms described in each repository.
+
+---
+
+## Related Projects
+
+- [Class Manager Server](https://github.com/Baotcb/Class_Manager_Server)
+- [Class Manager Admin Client](https://github.com/Baotcb/ClassManager_AdminClient_Typescript)
+- [Class Manager Public Client](https://github.com/Baotcb/ClassManager)
